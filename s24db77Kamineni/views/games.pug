@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    
+    - let results =  [{Game : "Tennis" , no_of_players : 2, equipment : "tennis ball"},{Game : "Badminton" , no_of_players : 4, equipment : "bat"},{Game : "Golf" , no_of_players: 1, equipment : "golf club"}]
+
+        div(class = "container-fluid")
+            div(class="row")
+                each item, index in results
+                    div(class="col-sm-2" onclick=`buy(${index})`)
+                        ul
+                            li  #{item.Game}
+                            li  #{item.no_of_players}
+                            li  #{item.equipment}
+                
+                script.
+                    function buy(index){
+                        alert('You bought an item ' + index);
+                    }
