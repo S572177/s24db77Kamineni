@@ -1,8 +1,26 @@
 var games = require('../models/games');
-// List of all.gamess
+// List of all.games
 exports.games_list = function (req, res) {
     res.send('NOT IMPLEMENTED:.games list');
 };
+
+
+
+// GET request for one games.
+router.get('/games/:id', games_controller.games_detail);
+// for a specific games.
+exports.games_detail = async function(req, res) {
+console.log("detail" + req.params.id)
+try {
+result = await games.findById( req.params.id)
+res.send(result)
+} catch (error) {
+res.status(500)
+res.send(`{"error": document for id ${req.params.id} not found`);
+}
+};
+
+
 // for a specific.games.
 exports.games_detail = function (req, res) {
     res.send('NOT IMPLEMENTED:.games detail: ' + req.params.id);
