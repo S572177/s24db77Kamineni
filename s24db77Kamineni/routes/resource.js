@@ -8,11 +8,11 @@ var games_controller = require('../controllers/games');
 router.get('/', api_controller.api);
 /// games ROUTES ///
 // POST request for creating a games.
-router.post('/games', games_controller.games_create_post);
+router.post('/creategames', games_controller.games_create_post);
 // DELETE request to delete games.
 router.delete('/games/:id', games_controller.games_delete);
 // PUT request to update games.
-router.put('/games/:id', games_controller.games_update_put);
+router.put('/gamesupdate/:id', games_controller.games_update_put);
 // GET request for one games.
 router.get('/games/:id', games_controller.games_detail);
 // GET request for list of all games items.

@@ -1,0 +1,54 @@
+extends layout
+
+block content
+
+
+
+    h1= title 
+    style.
+        #games{
+            background-color:green;
+        }
+        #equipment{
+            background-color:yellow;
+        }
+        #no_of_players{
+            background-color:blue;
+        }
+    form(id='gamesForm' action="/resource/creategames" method="POST") 
+
+        div.form-group
+            label.gamesAttr(for='games') games games 
+            input#games(type='text' name='games')  
+        div.form-group
+            label.gamesAttr(for='equipment') games equipment 
+            input#equipment(type='text' name='equipment')
+
+        div.form-group
+            label.gamesAttr(for='no_of_players') games no_of_players  
+            input#no_of_players(type='number' name='no_of_players')  
+
+        input(type="submit" class="btn btn-primary")  
+
+        script.
+            document.forms['gamesForm'].addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                // TODO do something here to show user that form is being submitted (e.g., visual feedback)
+
+                fetch(event.target.action, {
+                    method: 'POST',
+                    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                })
+                .then((resp) => {
+                    return resp.text(); // or resp.text() or whatever the server sends
+                })
+                .then((body) => {
+                    alert("Save succeeded!");
+                    // TODO handle body (potentially clear form or redirect)
+                })
+                .catch((error) => {
+                    alert("Save failed: " + error);
+                    // TODO handle error (e.g., display error message)
+                });
+            });

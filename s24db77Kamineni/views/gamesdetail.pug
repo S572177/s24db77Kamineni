@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1= title
+    if (toShow == null)
+        h2 No instance to delete
+    else
+       - let gamesid = toShow._id
+       - let games = toShow.games
+       - let no_of_players = toShow.no_of_players
+       - let equipment = toShow.equipment
+    div
+        div.row
+            div(class='gamesAttr mr-3') games ID is:
+            div= gamesid
+        div.row
+            div(class='gamesAttr mr-3') games Type is:
+            div= games
+        div.row
+            div(class='gamesAttr mr-3') no_of_players  is:
+            div= no_of_players
+        div.row
+            div(class='gamesAttr mr-3') equipment is:
+            div= equipment
