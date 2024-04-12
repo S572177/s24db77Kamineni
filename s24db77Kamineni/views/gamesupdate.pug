@@ -3,49 +3,56 @@ extends layout
 block content
     h1= title
 
-     if (toShow == null)
+    if (toShow == null)
         h2 No instance to delete
     else
-       - let gamesid = toShow._id
-       - let games = toShow.games
-       - let equipment = toShow.equipment
-       - let no_of_players = toShow.no_of_players
-    div.row(class='mb-2')
-        div.mr-1 ID is:
-            div #{gamesid}
-                - let actionid = "/resource/gamesupdate/" + gamesid
-                form#gamesForm(action=actionid, method="POST")
-                    .form-group
-                        label(for='games') Games
-                        input#games.form-control(type='text' name='games' value=games)
-                    .form-group
-                        label(for='equipment') Equipment
-                        input#equipment.form-control(type='text' name='equipment' value=equipment)
-                    .form-group
-                        label(for='no_of_players') Number of Players
-                        input#no_of_players.form-control(type='number' name='no_of_players' value=no_of_players)
-                    button.btn.btn-primary(type="submit") Submit
+        - let gamesid = toShow._id
+        - let games = toShow.games
+        - let equipment = toShow.equipment
+        - let no_of_players = toShow.no_of_players
+        div.row(class='mb-2')
+            div.mr-1 ID is:
+                div #{gamesid}
+                    - let actionid = "/resource/gamesupdate/" + gamesid
+                    form#gamesForm(action=actionid, method="POST")
+                        .form-group
+                            label(for='games') Games
+                            input#games.form-control(type='text' name='games' value=games)
+                        .form-group
+                            label(for='equipment') Equipment
+                            input#equipment.form-control(type='text' name='equipment' value=equipment)
+                        .form-group
+                            label(for='no_of_players') Number of Players
+                            input#no_of_players.form-control(type='number' name='no_of_players' value=no_of_players)
+                        button.btn.btn-primary(type="submit") Submit
 
-    script.
-        document.getElementById('gamesForm').addEventListener('submit', (event) => {
-            event.preventDefault();
+        script.
+            document.getElementById('gamesForm').addEventListener('submit', (event) => {
+                event.preventDefault();
 
-            // TODO: do something here to show user that form is being submitted
+                // Show loading spinner or disable the form
+                // Example: document.getElementById('spinner').style.display = 'block';
 
-            fetch(event.target.action, {
-                method: 'PUT',
-                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-            })
-            .then((resp) => {
-                return resp.text(); // or resp.text() or whatever the server sends
-            })
-            .then((body) => {
-                alert("Update succeeded");
+                fetch(event.target.action, {
+                    method: 'PUT',
+                    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                })
+                .then((resp) => {
+                    return resp.text(); // or resp.text() or whatever the server sends
+                })
+                .then((body) => {
+                    alert("Update succeeded");
 
-                // TODO: handle body
-            })
-            .catch((error) => {
-                // TODO: handle error
-                alert("Update failed " + error);
+                    // TODO: handle body
+
+                    // Hide loading spinner or enable the form
+                    // Example: document.getElementById('spinner').style.display = 'none';
+                })
+                .catch((error) => {
+                    // Handle error
+                    alert("Update failed " + error);
+
+                    // Hide loading spinner or enable the form
+                    // Example: document.getElementById('spinner').style.display = 'none';
+                });
             });
-        });
