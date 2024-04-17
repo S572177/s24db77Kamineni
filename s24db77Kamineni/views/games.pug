@@ -2,27 +2,34 @@ extends layout
 
 block content
     h1= title
-    p Welcome to #{title}
-
+    - let destination3 = `dispatch(\"/games/create\")`
+    p 
+        button.btn(class="btn-success ml-1", onclick=destination3) Create
+    p Welcome to Swetha kamineni #{title} page
 
     - let items = results  
 
-        div(class = "container-fluid")
-            div(class="row")
-                each item, index in results
-                    - let destination = `dispatch(\"/games/update?id=${item._id}\")`
-                    div(class="col-sm-2" onclick=`buy(${index})`)
-                        ul
-                            li  #{item.games}
-                            li  #{item.no_of_players}
-                            li  #{item.equipment}
-                            button.btn( class="btn-primary ml-1", onclick= destination) Updated
-                script.
-                    function buy(index){
-                        alert('You bought an item ' + index);
-                    }
-                script.
-                        function dispatch(path){
-                            window.location.href=path
-                         }
+    div(class="container-fluid")
+        div(class="row")
+            each item, index in results
+                - let destination = `dispatch(\"/games/update?id=${item._id}\")`
+                - let destination1 = `dispatch(\"/games/delete?id=${item._id}\")`
+                - let destination2 = `dispatch(\"/games/detail?id=${item._id}\")`
 
+                div(class="col-sm-2" onclick=`buy(${index})`)
+                    ul
+                        li #{item.games}
+                        li #{item.no_of_players}
+                        li #{item.equipment}
+                        button.btn(class="btn-primary ml-1", onclick=destination) Updated
+                        button.btn( class="btn-danger ml-1", onclick= destination1) Delete
+                        button.btn( class="btn-info ml-1", onclick= destination2) Detail
+
+            script.
+                function buy(index){
+                    alert('You bought an item ' + index);
+                }
+            script.
+                function dispatch(path){
+                    window.location.href=path
+                }

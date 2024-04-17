@@ -1,7 +1,7 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const gamesSchema = mongoose.Schema({
-games: String,
-equipment: String,
-no_of_players: Number
-})
-module.exports = mongoose.model("games",gamesSchema)
+  games: { type: String, minlength: 2 },
+  equipment: { type: String, required: true },
+  no_of_players: { type: Number, required: true },
+});
+module.exports = mongoose.model("games", gamesSchema);
